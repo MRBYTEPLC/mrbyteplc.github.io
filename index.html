@@ -307,7 +307,7 @@ section { position: relative; z-index: 1; }
 }
 
 /* ══════════════════════════════════
-   MISSION  IMPACT
+   MISSION BAND — NIW IMPACT
    ══════════════════════════════════ */
 #mission {
   background: var(--plate);
@@ -1084,11 +1084,9 @@ const CAT_LABELS = {
 
 // Sample seed videos
 let VIDEOS = JSON.parse(localStorage.getItem('mrbyte-videos') || 'null') || [
-  {id:'jfkpbsATlcg', title:'Open-Source MES Architecture for Small U.S. Manufacturers', desc:'This video presents an open-source MES architecture designed to support small and emerging manufacturing businesses in the United States. The project demonstrates how PLC integration, Python-based industrial applications, and low-cost digital technologies can help modernize production environments without requiring expensive enterprise software.', cat:'studio', dur:'1:45', added:'2026-05-01'},
-  {id:'ClFwQWB6Eeo', title:'Industry 4.0 for Small Manufacturers: PLC and Python Integration', desc:'Industry 4.0 technologies are often perceived as expensive and inaccessible for small manufacturers. This project demonstrates how PLC and Python integration can support affordable smart manufacturing solutions for small industrial operations.The goal is to encourage broader adoption of modern manufacturing technologies among small businesses and startups.
-', cat:'oee', dur:'1:46', added:'2026-04-15'},
-  {id:'HavnmXDztUs', title:'Scale Your Maintenance Operations: High-End Asset Management on a Startup Budget', desc:'Stop losing time to bureaucracy and start scaling your efficiency today.
-', cat:'network', dur:'35:02', added:'2026-04-01'},
+  {id:'HavnmXDztUs', title:'Studio 5000: Kanban Auto-Replenishment System — Full Build', desc:'Complete walkthrough of a production-ready Kanban replenishment program: flash-pulse counter architecture, operator delivery confirmation, and formula corrections for integer arithmetic.', cat:'studio', dur:'28:14', added:'2026-05-01'},
+  {id:'HavnmXDztUs', title:'OEE from Scratch: No MES, No Budget, No Excuses', desc:'Build a real OEE tracking system in Studio 5000 using only a ControlLogix and a free HMI — deployed and running in under a day.', cat:'oee', dur:'22:47', added:'2026-04-15'},
+  {id:'HavnmXDztUs', title:'EtherNet/IP Deep Dive: CIP Routing & Device Configuration', desc:'How EtherNet/IP actually works at the packet level — implicit vs explicit messaging, CIP routing through backplanes, and common configuration mistakes.', cat:'network', dur:'35:02', added:'2026-04-01'},
 ];
 
 let currentFilter = 'all';
