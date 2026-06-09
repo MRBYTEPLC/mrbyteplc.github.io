@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="description" content="MrBytePLC &#x2014; Industrial automation engineering. Studio 5000, OEE, MES, EtherNet/IP, open-source PLC methodologies for U.S. manufacturers.">
+<title>MrBytePLC &#x2014; Industrial Automation Intelligence</title>
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/hero.css">
+<link rel="stylesheet" href="assets/css/sections.css">
+</head>
+<body>
+
+<!-- ═══ NICKNAME MODAL ═══ -->
+<div class="nick-overlay" id="nick-overlay">
+  <div class="nick-box">
+    <div class="nick-logo">&#x1F916;</div>
+    <h2>WELCOME!</h2>
+    <p>Create a nickname to join the community &#x2014; comment, give likes, and appear on the Hall of Fame.</p>
+    <input class="nick-input" id="nick-input" type="text" maxlength="20" placeholder="Your nickname..." autocomplete="off" spellcheck="false">
+    <div class="nick-hint">2&#x2013;20 chars &#x2022; letters, numbers, _ - . only</div>
+    <div class="nick-err" id="nick-err"></div>
+    <button class="nick-btn" onclick="submitNick()">&#x2728; Join the Community</button>
+    <button class="nick-skip" onclick="skipNick()">Browse as guest</button>
+  </div>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">PLC</div>
+    MrBytePLC
+  </a>
+  <div class="nav-links">
+    <a href="#pillars">Expertise</a>
+    <a href="#mission">Mission</a>
+    <a href="#projects">Projects</a>
+    <a href="#simulator">Simulator</a>
+    <a href="pages/insights.html">Insights</a>
+    <a href="#comments">Community</a>
+    <a href="#halloffame">Hall of Fame</a>
+    <button id="nav-nick" onclick="openNickModal()" style="background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:1px;padding:0;transition:color .2s;">&#x1F464; Set Nickname</button>
+    <a href="https://youtube.com/@mrbyteplc" target="_blank" rel="noopener" class="nav-cta">&#x25BA; Subscribe</a>
+  </div>
+  <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-mobile" id="nav-mobile">
+  <a href="#pillars">&#x2699;&#xFE0F; Expertise</a>
+  <a href="#mission">&#x1F3AF; Mission</a>
+  <a href="#projects">&#x1F4F9; Projects</a>
+  <a href="#simulator">&#x1F5A5;&#xFE0F; Simulator</a>
+  <a href="pages/insights.html">&#x1F4DD; Insights</a>
+  <a href="#comments">&#x1F4AC; Community</a>
+  <a href="#halloffame">&#x1F3C6; Hall of Fame</a>
+  <a href="https://youtube.com/@mrbyteplc" target="_blank" rel="noopener">&#x25BA; YouTube</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Industrial Automation Intelligence</div>
+    <h1 class="hero-h1">WE DON&apos;T<br>WRITE RUNGS.<br><em>WE BUILD</em><br>SYSTEMS.</h1>
+    <p class="hero-body">
+      Deep technical content for engineers and technicians ready to move beyond the basics.
+      <strong>Studio 5000 &middot; MES &middot; OEE &middot; EtherNet/IP &middot; Industry 4.0</strong> &#x2014;
+      from the factory floor, built to empower the next wave of manufacturing.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">&#x25BA; View Projects</a>
+      <a href="https://github.com/mrbyteplc" target="_blank" rel="noopener" class="btn-ghost">&#x2605; GitHub</a>
+    </div>
+    <div class="hero-nav-buttons">
+      <a href="#pillars"          class="hero-nav-btn">&#x2699;&#xFE0F; Expertise</a>
+      <a href="#simulator"        class="hero-nav-btn">&#x1F5A5;&#xFE0F; Simulator</a>
+      <a href="pages/insights.html" class="hero-nav-btn">&#x1F4DD; Insights</a>
+      <a href="#comments"         class="hero-nav-btn">&#x1F4AC; Community</a>
+      <a href="#halloffame"       class="hero-nav-btn">&#x1F3C6; Hall of Fame</a>
+      <a href="#roadmap"          class="hero-nav-btn">&#x1F5FA;&#xFE0F; Roadmap</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hstat-n" id="stat-videos">0</div><div class="hstat-l">Projects</div></div>
+      <div><div class="hstat-n">100%</div><div class="hstat-l">Open Source</div></div>
+      <div><div class="hstat-n">5+</div><div class="hstat-l">Methodologies</div></div>
+    </div>
+    <div class="hero-counters">
+      <div class="hcounter">&#x1F441;&#xFE0F; <span class="hcounter-val" id="visit-count">0</span> visits</div>
+      <button class="like-btn" id="like-btn" onclick="toggleLike()">
+        <span class="heart">&#x2764;&#xFE0F;</span>
+        <span id="like-count">0</span> likes
+      </button>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="tb-dot r"></div><div class="tb-dot y"></div><div class="tb-dot g"></div>
+        <span class="tb-title">oee_tracker.L5X &#x2014; Studio 5000</span>
+      </div>
+      <div class="terminal-body">
+<span class="tl"><span class="tl-ln">01</span><span class="tl-cmt">// OEE TRACKER v2.0</span></span>
+<span class="tl"><span class="tl-ln">02</span><span class="tl-cmt">// Availability &middot; Performance &middot; Quality</span></span>
+<span class="tl"><span class="tl-ln">03</span></span>
+<span class="tl"><span class="tl-ln">04</span><span class="tl-kw">XIC</span>(<span class="tl-tag">line_running</span>) <span class="tl-kw">XIO</span>(<span class="tl-tag">FAULT</span>[<span class="tl-num">01</span>])</span>
+<span class="tl"><span class="tl-ln">05</span><span class="tl-fn">CTU</span>(<span class="tl-tag">GOOD_PARTS</span>, <span class="tl-num">9999</span>, <span class="tl-num">0</span>);</span>
+<span class="tl"><span class="tl-ln">06</span></span>
+<span class="tl"><span class="tl-ln">07</span><span class="tl-cmt">// OEE = A &times; P &times; Q</span></span>
+<span class="tl"><span class="tl-ln">08</span><span class="tl-fn">CPT</span>(<span class="tl-tag">OEE_PCT</span>,</span>
+<span class="tl"><span class="tl-ln">09</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tl-str">AVAIL</span> * <span class="tl-str">PERF</span> * <span class="tl-str">QUALITY</span>);</span>
+<span class="tl"><span class="tl-ln">10</span></span>
+<span class="tl"><span class="tl-ln">11</span><span class="tl-cmt">// Historian-ready output</span></span>
+<span class="tl"><span class="tl-ln">12</span><span class="tl-fn">MOV</span>(<span class="tl-tag">OEE_PCT</span>, <span class="tl-str">MQTT_TAG.OEE</span>);</span>
+<span class="tl"><span class="tl-ln">13</span></span>
+<span class="tl"><span class="tl-ln">14</span><span class="tl-ok">// &#x2713; Clean code &#x2192; clean production</span> <span class="cursor"></span></span>
+      </div>
+    </div>
+    <div class="badge-float bf1"><span class="bf-val">OEE</span>Studio 5000 &middot; Lean &middot; MES</div>
+    <div class="badge-float bf2"><span class="bf-val">&#x2713; Open Source</span>github.com/mrbyteplc</div>
+  </div>
+</section>
+
+<!-- ═══ PILLARS ═══ -->
+<section id="pillars">
+  <div class="section-inner">
+    <div class="section-eyebrow fade-up">Technical Stack</div>
+    <h2 class="section-h2 fade-up">WHAT YOU&apos;LL<br>FIND HERE</h2>
+    <p class="section-sub fade-up">Each project is engineered around a real industrial problem &#x2014; no theory for theory&apos;s sake.</p>
+    <div class="pillars-grid">
+      <div class="pillar fade-up"><div class="pillar-icon">&#x2699;&#xFE0F;</div><div class="pillar-num">01 / PROGRAMMING</div><h3>STUDIO 5000<br>&amp; HMI/SCADA</h3><p>Production-grade ladder logic, structured text, FBD, and Logix Designer best practices that scale across facilities.</p><span class="pillar-tag">RSLogix &middot; FactoryTalk &middot; Ignition</span></div>
+      <div class="pillar fade-up"><div class="pillar-icon">&#x1F4CA;</div><div class="pillar-num">02 / EFFICIENCY</div><h3>OEE &amp; LEAN<br>AUTOMATION</h3><p>Scalable methodologies for production monitoring and efficiency improvement &#x2014; without expensive enterprise software.</p><span class="pillar-tag">OEE &middot; Lean &middot; MES Integration</span></div>
+      <div class="pillar fade-up"><div class="pillar-icon">&#x1F310;</div><div class="pillar-num">03 / NETWORKING</div><h3>HARDWARE &amp;<br>INTEGRATION</h3><p>EtherNet/IP architecture, IO-Link sensor networks, device configuration, and industrial cybersecurity fundamentals.</p><span class="pillar-tag">EtherNet/IP &middot; IO-Link &middot; PROFINET</span></div>
+      <div class="pillar fade-up"><div class="pillar-icon">&#x1F3ED;</div><div class="pillar-num">04 / INDUSTRY 4.0</div><h3>SMART<br>MANUFACTURING</h3><p>Practical IIoT architectures, data historians, and ML-assisted fault detection for the real factory floor.</p><span class="pillar-tag">IIoT &middot; MQTT &middot; Edge Computing</span></div>
+      <div class="pillar fade-up"><div class="pillar-icon">&#x1F527;</div><div class="pillar-num">05 / TROUBLESHOOT</div><h3>REAL-WORLD<br>SCENARIOS</h3><p>Diagnostic frameworks, fault trees, and systematic debugging for Rockwell Automation and multi-vendor environments.</p><span class="pillar-tag">Rockwell &middot; Siemens &middot; B&amp;R</span></div>
+      <div class="pillar fade-up"><div class="pillar-icon">&#x1F680;</div><div class="pillar-num">06 / OPEN SOURCE</div><h3>FREE CODE<br>FOR BUILDERS</h3><p>Every methodology published as open-source templates &#x2014; empowering small manufacturers and startups everywhere.</p><span class="pillar-tag">GitHub &middot; MIT License &middot; Scalable</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ MISSION ═══ -->
+<section id="mission">
+  <div class="section-inner">
+    <div class="mission-grid">
+      <div class="mission-left fade-up">
+        <div class="section-eyebrow">Mission &amp; Impact</div>
+        <h2 class="section-h2">ENGINEERING<br>AT SCALE</h2>
+        <p>The gap between enterprise automation software and what a <strong>startup can actually afford</strong> is enormous. Most early-stage manufacturers can&apos;t justify six-figure MES licenses or dedicated automation integrators &#x2014; so they run blind.</p>
+        <p>My work closes that gap by developing and <strong>open-sourcing scalable programming methodologies</strong> that give small manufacturers the same visibility and efficiency tools that large OEMs take for granted.</p>
+        <div class="mission-quote"><p>&ldquo;Clean, standardized code isn&apos;t just good engineering practice &#x2014; it&apos;s an economic multiplier for every shop floor it touches. When a three-person operation can deploy a real production monitoring system from a GitHub repo, that&apos;s manufacturing equity.&rdquo;</p></div>
+        <p>Over the longer term, this work extends toward <strong>ML-assisted fault detection, intelligent industrial networking, advanced traceability systems</strong>, and scalable data architectures.</p>
+      </div>
+      <div class="mission-right fade-up">
+        <div class="impact-cards">
+          <div class="impact-card"><div class="impact-icon">&#x1F3D7;&#xFE0F;</div><div><div class="impact-title">Standardized Methodologies for Small Manufacturers</div><div class="impact-desc">Repeatable PLC programming frameworks that startups can deploy without an integration team &#x2014; reducing time-to-production visibility from months to days.</div></div></div>
+          <div class="impact-card"><div class="impact-icon">&#x1F4C2;</div><div><div class="impact-title">Open-Source Code on GitHub</div><div class="impact-desc">All methodologies published as free, documented repositories. Any startup or small manufacturer can clone, adapt, and deploy &#x2014; zero licensing cost.</div></div></div>
+          <div class="impact-card"><div class="impact-icon">&#x1F393;</div><div><div class="impact-title">STEM Education &amp; Workforce Development</div><div class="impact-desc">Educational content that helps students, technicians, and engineers build industrial automation skills &#x2014; bridging theory and real-world practice.</div></div></div>
+          <div class="impact-card"><div class="impact-icon">&#x1F4C8;</div><div><div class="impact-title">Measurable Production Impact</div><div class="impact-desc">Every framework is validated against real factory constraints &#x2014; with documented guides and benchmarks manufacturers can actually use.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ PROJECTS ═══ -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-eyebrow fade-up">Engineering Projects</div>
+    <h2 class="section-h2 fade-up">PRODUCTION-GRADE<br>SOLUTIONS</h2>
+    <p class="section-sub fade-up">Real automation engineering projects &#x2014; each with a full video walkthrough, open-source code, and documented implementation benefits.</p>
+    <button class="btn-toggle-add" onclick="toggleAddPanel()">&#x002B; Add YouTube Video</button>
+    <div class="add-video-panel" id="add-panel" style="display:none;">
+      <div class="avp-title">&#x25BA; <span>Add Project</span></div>
+      <div class="form-row">
+        <div class="field"><label>YouTube URL or Video ID</label><input id="f-url" type="text" placeholder="https://youtube.com/watch?v=..."></div>
+        <div class="field"><label>Duration (optional)</label><input id="f-dur" type="text" placeholder="24:30"></div>
+      </div>
+      <div class="form-row full"><div class="field"><label>Project Title</label><input id="f-title" type="text" placeholder="Studio 5000: OEE System Build"></div></div>
+      <div class="form-row">
+        <div class="field"><label>Category</label>
+          <select id="f-cat">
+            <option value="studio">Studio 5000</option>
+            <option value="oee">OEE / Lean</option>
+            <option value="network">Networking</option>
+            <option value="mes">MES / I4.0</option>
+            <option value="troubl">Troubleshooting</option>
+            <option value="vision">Vision / AI</option>
+          </select>
+        </div>
+        <div class="field"><label>Short Description</label><textarea id="f-desc" placeholder="What will the viewer learn?"></textarea></div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-add" onclick="addVideo()">Add Project</button>
+        <button class="btn-cancel" onclick="toggleAddPanel()">Cancel</button>
+      </div>
+      <p id="add-error" style="color:var(--red);font-size:12px;margin-top:8px;display:none"></p>
+    </div>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterVideos('all',this)">All Projects</button>
+      <button class="filter-btn" onclick="filterVideos('studio',this)">Studio 5000</button>
+      <button class="filter-btn" onclick="filterVideos('oee',this)">OEE / Lean</button>
+      <button class="filter-btn" onclick="filterVideos('network',this)">Networking</button>
+      <button class="filter-btn" onclick="filterVideos('mes',this)">MES / I4.0</button>
+      <button class="filter-btn" onclick="filterVideos('troubl',this)">Troubleshooting</button>
+      <button class="filter-btn" onclick="filterVideos('vision',this)">Vision / AI</button>
+    </div>
+    <div class="video-grid" id="video-grid"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ SIMULATOR ═══ -->
+<section id="simulator">
+  <div class="section-inner">
+    <div class="section-eyebrow fade-up">Interactive STEM Tool</div>
+    <h2 class="section-h2 fade-up">CONVEYOR BELT<br>SIMULATOR</h2>
+    <p class="section-sub fade-up">Visualize how a photoelectric sensor at the start of the belt counts boxes in real time. Set a target, hit Start, and watch the PLC logic in action.</p>
+    <div class="sim-wrap fade-up">
+      <div class="sim-toolbar">
+        <div class="sim-toolbar-left">
+          <span class="sim-title">&#x1F5A5;&#xFE0F; Conveyor Belt &mdash; Block &amp; Wiring Sim</span>
+          <span class="sim-badge stopped" id="sim-badge">STOPPED</span>
+        </div>
+        <div class="sim-controls">
+          <button class="sim-btn start" id="btn-start" onclick="simStart()">&#x25BA; Start</button>
+          <button class="sim-btn stop"  id="btn-stop"  onclick="simStop()"  disabled>&#x23F9; Stop</button>
+          <button class="sim-btn reset" id="btn-reset" onclick="simReset()">&#x21BA; Reset</button>
+        </div>
+      </div>
+      <div class="sim-params">
+        <div class="sim-param">
+          <label>Speed</label>
+          <input type="range" min="0.5" max="5" step="0.5" value="2" oninput="simSetSpeed(this.value)">
+          <span class="sim-param-val" id="sim-speed-val">2x</span>
+        </div>
+        <div class="sim-param">
+          <label>Box Target</label>
+          <input type="range" min="1" max="20" step="1" value="5" oninput="simSetTarget(this.value)">
+          <span class="sim-param-val" id="sim-target-val">5</span>
+        </div>
+      </div>
+      <div class="sim-canvas-wrap">
+        <canvas id="sim-canvas"></canvas>
+      </div>
+      <div class="sim-stats">
+        <span class="sim-stat">Sensor: <span>Photoelectric @ Start</span></span>
+        <span class="sim-stat">Count: <span id="sim-count">0</span></span>
+        <span class="sim-stat">Target: <span id="sim-target-display">5</span></span>
+        <span class="sim-stat">Logic: <span>CTU (Count Up)</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ INSIGHTS ═══ -->
+<section id="insights">
+  <div class="section-inner">
+    <div class="section-eyebrow fade-up">STEM Education</div>
+    <h2 class="section-h2 fade-up">TECHNICAL<br>INSIGHTS</h2>
+    <p class="section-sub fade-up">Articles on industrial automation, engineering education, and accessible STEM resources for the next generation of control systems professionals.</p>
+    <div class="insights-grid">
+      <div class="insight-card fade-up">
+        <div class="insight-tag"><span class="insight-icon">&#x1F4BB;</span>Simulation Technology &amp; STEM</div>
+        <div class="insight-title">SIMULATION-BASED TRAINING IN INDUSTRIAL AUTOMATION</div>
+        <div class="insight-body">
+          <p>The growing adoption of simulation technologies is creating new opportunities for students, technicians, and engineers to develop industrial automation skills in accessible and low-risk environments.</p><br>
+          <p>By enabling users to design, validate, and troubleshoot PLC ladder logic before working with physical equipment, these platforms help bridge the gap between theoretical knowledge and real-world industrial applications.</p><br>
+          <p style="color:var(--amber);font-style:italic;font-size:13px;">What role do you think simulation technologies will play in preparing the next generation of industrial automation professionals?</p>
+        </div>
+        <div class="insight-hashtags"><span class="insight-hashtag">#IndustrialAutomation</span><span class="insight-hashtag">#PLCProgramming</span><span class="insight-hashtag">#STEM</span><span class="insight-hashtag">#EngineeringEducation</span><span class="insight-hashtag">#ControlSystems</span></div>
+        <div class="insight-ref"><span class="insight-ref-icon">&#x1F517;</span><div><div class="insight-ref-label">Reference Resource</div><a href="https://mechsimulator.com/tools/plc-ladder-logic/" target="_blank" rel="noopener">mechsimulator.com/tools/plc-ladder-logic/</a></div></div>
+        <div class="insight-disclaimer">&#x2139;&#xFE0F; <strong>Note:</strong> Referenced resource not developed by MrBytePLC. Shared for educational purposes only as an openly accessible STEM learning tool.</div>
+      </div>
+      <div class="insight-card fade-up">
+        <div class="insight-tag"><span class="insight-icon">&#x1F9EE;</span>Logic Foundations &amp; Control Systems</div>
+        <div class="insight-title">THE OVERLOOKED FOUNDATION: TRUTH TABLES IN AUTOMATION</div>
+        <div class="insight-body">
+          <p>One concept that often gets overlooked in industrial automation training is the importance of truth tables. Whether working with relay logic, hardwired control systems, or PLC programming, understanding how inputs affect outputs through AND, OR, and NOT logic is fundamental to designing reliable control systems.</p><br>
+          <p>Strong foundations in Boolean logic help engineers and technicians troubleshoot faster, validate designs more effectively, and reduce commissioning errors.</p>
+        </div>
+        <div class="insight-hashtags"><span class="insight-hashtag">#IndustrialAutomation</span><span class="insight-hashtag">#PLC</span><span class="insight-hashtag">#ControlSystems</span><span class="insight-hashtag">#STEMEducation</span><span class="insight-hashtag">#WorkforceDevelopment</span></div>
+        <div class="insight-ref"><span class="insight-ref-icon">&#x1F517;</span><div><div class="insight-ref-label">Reference Resource</div><a href="https://plcpractice.com/learn/foundations/truth-tables" target="_blank" rel="noopener">plcpractice.com/learn/foundations/truth-tables</a></div></div>
+        <div class="insight-disclaimer">&#x2139;&#xFE0F; <strong>Note:</strong> Referenced resource not developed by MrBytePLC. Shared for educational purposes only as an openly accessible STEM learning tool.</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="pages/insights.html" class="btn-ghost">&#x1F4DD; Read Full Insights</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ COMMENTS ═══ -->
+<section id="comments">
+  <div class="section-inner">
+    <div class="section-eyebrow fade-up">Community</div>
+    <h2 class="section-h2 fade-up">JOIN THE<br>CONVERSATION</h2>
+    <p class="section-sub fade-up">Share your thoughts on industrial automation, STEM education, or the projects. All comments are reviewed before publishing.</p>
+    <div class="comments-layout">
+      <div class="comments-list-wrap">
+        <div class="comments-list" id="comments-list"></div>
+      </div>
+      <div class="comment-form-box fade-up">
+        <div class="cfb-title">&#x1F4AC; <span>Leave a Comment</span></div>
+        <div id="cfb-form-wrap"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ HALL OF FAME ═══ -->
+<section id="halloffame">
+  <div class="section-inner">
+    <div class="section-eyebrow fade-up">Top Community Members</div>
+    <h2 class="section-h2 fade-up">HALL OF<br>FAME</h2>
+    <p class="section-sub fade-up">Top contributors ranked by community participation. Like content and leave comments to earn points and climb the leaderboard.</p>
+    <div class="hof-grid" id="hof-grid"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ ROADMAP ═══ -->
+<section id="roadmap">
+  <div class="section-inner narrow">
+    <div class="section-eyebrow fade-up">Technical Roadmap</div>
+    <h2 class="section-h2 fade-up">WHERE THIS<br>IS GOING</h2>
+    <div class="roadmap-list">
+      <div class="roadmap-item fade-up">
+        <div class="rm-phase">Phase 01<br><span class="rm-status">Live</span></div>
+        <div class="rm-body"><h4>OPEN-SOURCE PLC METHODOLOGY LIBRARY</h4><p>OEE tracking, production monitoring, and alarm management frameworks published as Studio 5000 templates &#x2014; free and documented for any manufacturer to deploy.</p><div class="rm-tags"><span class="rm-tag">Studio 5000</span><span class="rm-tag">GitHub</span><span class="rm-tag">OEE</span><span class="rm-tag">Alarm Management</span></div></div>
+      </div>
+      <div class="roadmap-item fade-up">
+        <div class="rm-phase">Phase 02<br><span class="rm-status building">Building</span></div>
+        <div class="rm-body"><h4>SCALABLE MES INTEGRATION LAYER</h4><p>Lightweight MES connectivity patterns for EtherNet/IP environments &#x2014; enabling startups to connect production data to dashboards without enterprise software licensing.</p><div class="rm-tags"><span class="rm-tag">EtherNet/IP</span><span class="rm-tag">MQTT</span><span class="rm-tag">Node-RED</span><span class="rm-tag">InfluxDB</span></div></div>
+      </div>
+      <div class="roadmap-item fade-up">
+        <div class="rm-phase">Phase 03<br><span class="rm-status planned">Planned</span></div>
+        <div class="rm-body"><h4>ML-ASSISTED FAULT DETECTION</h4><p>Machine learning applied to real production historian data for predictive maintenance and anomaly detection &#x2014; with edge deployment strategies for existing Rockwell infrastructure.</p><div class="rm-tags"><span class="rm-tag">ML / AI</span><span class="rm-tag">Edge Computing</span><span class="rm-tag">Predictive Maintenance</span></div></div>
+      </div>
+      <div class="roadmap-item fade-up">
+        <div class="rm-phase">Phase 04<br><span class="rm-status planned">Planned</span></div>
+        <div class="rm-body"><h4>INTELLIGENT TRACEABILITY ARCHITECTURE</h4><p>End-to-end traceability systems for automotive and advanced manufacturing &#x2014; supporting IATF 16949 compliance without purpose-built traceability suites.</p><div class="rm-tags"><span class="rm-tag">Traceability</span><span class="rm-tag">IATF 16949</span><span class="rm-tag">Automotive</span><span class="rm-tag">Industry 4.0</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ OPEN SOURCE ═══ -->
+<section id="opensource">
+  <div class="section-inner">
+    <div class="section-eyebrow fade-up">Open Source</div>
+    <h2 class="section-h2 fade-up">FREE CODE<br>FOR BUILDERS</h2>
+    <p class="section-sub fade-up">Every methodology lives on GitHub &#x2014; clone it, adapt it, ship it. No licensing. No enterprise contracts.</p>
+    <div class="os-grid">
+      <div class="os-card fade-up"><div class="os-lang"><div class="os-dot" style="background:#f59e0b"></div>Ladder Logic / L5X</div><div class="os-name">oee-tracker-starter</div><div class="os-desc">Lightweight OEE calculation engine &#x2014; availability, performance, and quality tracking for lines without a dedicated MES, deployable in under a day.</div><div class="os-stars">&#x2605; Studio 5000 &middot; No MES Required &middot; MIT</div><br><a class="os-link" href="https://github.com/mrbyteplc" target="_blank" rel="noopener">View on GitHub &#x2192;</a></div>
+      <div class="os-card fade-up"><div class="os-lang"><div class="os-dot" style="background:#10b981"></div>Ladder Logic / L5X</div><div class="os-name">production-counter-standard</div><div class="os-desc">Standardized production counting with shift resets, reject tracking, and historian-ready output tags for any Logix-based system.</div><div class="os-stars">&#x2605; Logix 5000 &middot; Documented &middot; MIT</div><br><a class="os-link" href="https://github.com/mrbyteplc" target="_blank" rel="noopener">View on GitHub &#x2192;</a></div>
+      <div class="os-card fade-up"><div class="os-lang"><div class="os-dot" style="background:#3b82f6"></div>Structured Text</div><div class="os-name">alarm-management-template</div><div class="os-desc">ISA-18.2 alarm management framework &#x2014; rationalized alarm shelving, suppression, and priority matrices.</div><div class="os-stars">&#x2605; ISA-18.2 Aligned &middot; MIT</div><br><a class="os-link" href="https://github.com/mrbyteplc" target="_blank" rel="noopener">View on GitHub &#x2192;</a></div>
+      <div class="os-card fade-up"><div class="os-lang"><div class="os-dot" style="background:#a855f7"></div>HTML / JS</div><div class="os-name">plc-logic-simulator</div><div class="os-desc">Browser-based PLC logic simulator &#x2014; design, validate, and troubleshoot ladder logic without physical hardware.</div><div class="os-stars">&#x2605; No-Install &middot; Training Tool &middot; MIT</div><br><a class="os-link" href="https://github.com/mrbyteplc" target="_blank" rel="noopener">View on GitHub &#x2192;</a></div>
+      <div class="os-card fade-up"><div class="os-lang"><div class="os-dot" style="background:#f87171"></div>Node-RED / JSON</div><div class="os-name">ethernet-ip-dashboard</div><div class="os-desc">Low-cost production dashboard connecting directly to EtherNet/IP PLCs via Node-RED &#x2014; real-time tag monitoring, zero MES license.</div><div class="os-stars">&#x2605; Free Stack &middot; EtherNet/IP &middot; MIT</div><br><a class="os-link" href="https://github.com/mrbyteplc" target="_blank" rel="noopener">View on GitHub &#x2192;</a></div>
+      <div class="os-card fade-up"><div class="os-lang"><div class="os-dot" style="background:#67e8f9"></div>Python / ML</div><div class="os-name">fault-detection-starter</div><div class="os-desc">Baseline ML pipeline for industrial fault detection &#x2014; connects to historian data, trains anomaly models, deploys alerts back into the PLC environment.</div><div class="os-stars">&#x2605; Edge-Ready &middot; Predictive &middot; MIT</div><br><a class="os-link" href="https://github.com/mrbyteplc" target="_blank" rel="noopener">View on GitHub &#x2192;</a></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ SUBSCRIBE ═══ -->
+<section id="subscribe">
+  <div class="subscribe-inner">
+    <div class="section-eyebrow fade-up" style="justify-content:center;">Join the Community</div>
+    <h2 class="sub-h2 fade-up">AUTOMATE<br>THE <em>FUTURE.</em></h2>
+    <p class="sub-body fade-up">Subscribe to turn your logic into high-performance production. New projects every week &#x2014; real systems, real factories, real results.</p>
+    <div class="sub-actions fade-up">
+      <a href="https://youtube.com/@mrbyteplc" target="_blank" rel="noopener" class="yt-btn"><span class="yt-icon">&#x25BA;</span> Subscribe on YouTube</a>
+      <a href="https://github.com/mrbyteplc" target="_blank" rel="noopener" class="btn-ghost">&#x2605; Star on GitHub</a>
+      <a href="pages/insights.html" class="btn-ghost">&#x1F4DD; Read Insights</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-left">
+    <strong>MrBytePLC</strong> &#x2014; Industrial Automation Intelligence<br>
+    Clean code leads to clean production. &#x1F680;
+  </div>
+  <div class="footer-links">
+    <a href="https://youtube.com/@mrbyteplc" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://github.com/mrbyteplc" target="_blank" rel="noopener">GitHub</a>
+    <a href="#projects">Projects</a>
+    <a href="#comments">Community</a>
+    <a href="pages/insights.html">Insights</a>
+  </div>
+</footer>
+
+<!-- ═══ VIDEO MODAL ═══ -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open');document.getElementById('modal-iframe').src=''">&#x2715;</button>
+    <iframe class="modal-iframe" id="modal-iframe" src="" allowfullscreen></iframe>
+  </div>
+</div>
+
+<!-- ═══ ONLINE BAR ═══ -->
+<div class="online-bar">
+  <div class="online-dot"></div>
+  <span class="online-label">Online now:</span>
+  <span class="online-names" id="online-names"></span>
+  <span class="online-count" id="online-count">1</span>
+</div>
+
+<!-- ═══ TOAST ═══ -->
+<div class="toast" id="toast"></div>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
